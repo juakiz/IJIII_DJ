@@ -4,6 +4,13 @@ import Player from '../objects/player'
 import Geom from '../geom'
 import Platform from '../objects/platform'
 
+const LEVEL = [
+  [0, 29, 20, 1],
+  [10, 26, 4, 2],
+  // [],
+  // [],
+]
+
 export default class extends Phaser.State {
   init () { }
   preload () { }
@@ -15,8 +22,6 @@ export default class extends Phaser.State {
     this.DRAG = 600
     this.GRAVITY = 2600
     this.JUMP_SPEED = -750
-    const SZ = 32
-    // console.log(this.game)
 
     this.player = new Player(this.game, 32, 960 - 32, 'mushroom')
 
@@ -30,24 +35,16 @@ export default class extends Phaser.State {
     ])
     this.ground = this.game.add.group()
 
-    let path = new Phaser.Rectangle(0, 0, 640, SZ);
-    const opt = { bgColor: 0x000000 };
-    const groundBlock = new Platform(this.game, 0, 960 - SZ, path, opt)
-    this.ground.add(groundBlock);
-
-    path = new Phaser.Rectangle(0, 0, 128, SZ * 2);
-    const platform1 = new Platform(this.game, (640 / 2), 960 - (SZ * 4), path, opt)
-    this.ground.add(platform1);
-
-    path = new Phaser.Rectangle(0, 0, 64, SZ);
-    const platform2 = new Platform(this.game, SZ * 2, 960 - (SZ * 6), path, opt)
-    this.ground.add(platform2);
-
-    path = new Phaser.Rectangle(0, 0, 64, SZ);
-    const platform3 = new Platform(this.game, SZ * 12, 960 - (SZ * 6), path, opt)
-    this.ground.add(platform3);
+    this.bluePrint();
 
     this.game.add.existing(this.player)
+  }
+
+  bluePrint() {
+    const opt = { bgColor: 0x000000 };
+    for (let i = 0; i < LEVEL.length; i++) {
+      this.ground.add(new Platform(this.game, LEVEL[i][0], LEVEL[i][1], LEVEL[i][2], LEVEL[i][3], opt))
+    }
   }
 
   update () {
