@@ -21,6 +21,11 @@ export default class extends Phaser.Sprite {
     this.body.drag.setTo(this.DRAG, 0)
     this.body.collideWorldBounds = true
 
+    this.jumping = false
+    this.jumps = 0
+    this.doubleJamp = false
+    this.hiperJamp = true
+
     this.game.input.keyboard.addKeyCapture([
       Phaser.Keyboard.LEFT,
       Phaser.Keyboard.RIGHT,
@@ -28,16 +33,12 @@ export default class extends Phaser.Sprite {
       Phaser.Keyboard.DOWN,
       Phaser.Keyboard.SPACEBAR
     ])
-    this.body.velocity.x = -1;
-  }
-
-  create() {
-    
+    this.body.velocity.x = -1
   }
 
   update () {
     this.game.physics.arcade.collide(this, this._state.ground)
-
+    
     if (this.leftInputIsActive()) {
       this.body.velocity.x = -this.MAX_SPEED
     } else if (this.rightInputIsActive()) {
@@ -46,9 +47,27 @@ export default class extends Phaser.Sprite {
       this.body.velocity.x = 0
     }
 
-    if (this.body.touching.down && this.upInputIsActive(5)) {
-      // Jump when the player is touching the ground and the up arrow is pressed
+    let onTheGround = this.body.touching.down
+
+    if (onTheGround && this.doubleJamp) {
+      this.jumps = 2
+      this.jumping = false
+    } else if (onTheGround && !this.doubleJamp) {
+      this.jumps = 1
+      this.jumping = false
+    }
+    // saltar
+    if (this.jumps > 0 && this.upInputIsActive() && this.hiperJamp) {
+      this.body.velocity.y = this.JUMP_SPEED * 1.5
+      this.jumping = true
+    } else if (this.jumps > 0 && this.upInputIsActive() && !this.hiperJamp) {
       this.body.velocity.y = this.JUMP_SPEED
+      this.jumping = true
+    }
+    // Reduce the number of available jumps if the jump input is released
+    if (this.jumping && this.upInputReleased()) {
+      this.jumps--
+      this.jumping = false
     }
   }
 
@@ -68,5 +87,11 @@ export default class extends Phaser.Sprite {
     let isActive = false
     isActive = this._state.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR)
     return isActive
+  }
+
+  upInputReleased () {
+    var released = false
+    released = this._state.input.keyboard.upDuration(Phaser.Keyboard.SPACEBAR)
+    return released
   }
 }
