@@ -4,8 +4,12 @@ import Geom from '../geom'
 export default class extends Phaser.Sprite {
   constructor(game, x, y) {
     const opt = { bgColor: 0xFF0000 }
-    super(game, x, y, 'PLAYER')
+    super(game, x, y, 'char_idle')
     this.anchor.setTo(0.5, 1)
+
+    this.animations.add('idle');
+
+    this.animations.play('idle', 6, true);
 
     this.MAX_SPEED = 350
     // this.ACCELERATION = 1000
@@ -32,7 +36,7 @@ export default class extends Phaser.Sprite {
       Phaser.Keyboard.DOWN,
       Phaser.Keyboard.SPACEBAR
     ])
-    this.body.setSize(32, 128, 30)
+    this.body.setSize(32, 128, 30, 5)
   }
 
   update () {

@@ -27,8 +27,10 @@ const LEVELS = {
   level2: [
     [6, 26, 5, 2],
     [13, 24, 5, 2],
-    [6, 20, 3, 2],
-
+    [8, 20, 1, 1],
+    [1, 16, 3, 2],
+    [8, 12, 4, 4],
+    [16, 8, 4, 1]
   ],
 }
 
@@ -46,7 +48,7 @@ export default class extends Phaser.State {
 
     this.ground = this.game.add.group()
 
-    this.bluePrint('level1');
+    this.bluePrint('level2');
 
     this.game.add.existing(this.player)
   }
