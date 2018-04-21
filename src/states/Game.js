@@ -17,7 +17,7 @@ export default class extends Phaser.State {
       game: this.game,
       x: this.world.bottomX,
       y: this.world.bottomY,
-      asset: 'mushroom',
+      asset: 'mushroom'
     })
     this.game.physics.enable(this.player, Phaser.Physics.ARCADE)
     this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10)
@@ -29,14 +29,57 @@ export default class extends Phaser.State {
       Phaser.Keyboard.RIGHT,
       Phaser.Keyboard.UP,
       Phaser.Keyboard.DOWN,
-      Phaser.Keyboard.SPACEBAR,
+      Phaser.Keyboard.SPACEBAR
     ])
-    this.game.add.existing(this.mushroom)
+    this.ground = this.game.add.group()
+    for (let x = 0; x < this.game.width; x += 32) {
+      // Add the ground blocks, enable physics on each, make them immovable
+      const groundBlock = this.game.add.sprite(x, this.game.height - 32, 'ground')
+      this.game.physics.enable(groundBlock, Phaser.Physics.ARCADE)
+      groundBlock.body.immovable = true
+      groundBlock.body.allowGravity = false
+      this.ground.add(groundBlock)
+    }
+    this.game.add.existing(this.player)
+  }
+
+  update () {
+    this.game.physics.arcade.collide(this.player, this.ground)
+
+    if (this.leftInputIsActive()) {
+      this.player.body.velocity.x = -this.MAX_SPEED
+    } else if (this.rightInputIsActive()) {
+      this.player.body.velocity.x = this.MAX_SPEED
+    } else {
+      this.player.body.velocity.x = 0
+    }
+
+    if (this.player.body.touching.down && this.upInputIsActive(5)) {
+      // Jump when the player is touching the ground and the up arrow is pressed
+      this.player.body.velocity.y = this.JUMP_SPEED
+    }
+  }
+
+  leftInputIsActive () {
+    let isActive = false
+    isActive = this.input.keyboard.isDown(Phaser.Keyboard.LEFT)
+    return isActive
+  }
+
+  rightInputIsActive () {
+    let isActive = false
+    isActive = this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
+    return isActive
+  }
+  upInputIsActive () {
+    let isActive = false
+    isActive = this.input.keyboard.downDuration(Phaser.Keyboard.UP)
+    return isActive
   }
 
   render () {
     if (__DEV__) {
-      this.game.debug.spriteInfo(this.mushroom, 32, 32)
+      this.game.debug.spriteInfo(this.player, 32, 32)
     }
   }
 }
