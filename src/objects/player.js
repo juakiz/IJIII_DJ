@@ -58,7 +58,7 @@ export default class extends Phaser.Sprite {
     }
     // saltar
     if (this.jumps > 0 && this.upInputIsActive() && this.hiperJamp) {
-      this.body.velocity.y = this.JUMP_SPEED * 1.5
+      this.body.velocity.y = this.JUMP_SPEED * 1.6
       this.jumping = true
     } else if (this.jumps > 0 && this.upInputIsActive() && !this.hiperJamp) {
       this.body.velocity.y = this.JUMP_SPEED
