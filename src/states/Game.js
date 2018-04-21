@@ -1,6 +1,8 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Player from '../sprites/Player'
+import Player from '../objects/player'
+import Geom from '../geom'
+import Platform from '../objects/platform'
 
 export default class extends Phaser.State {
   init () { }
@@ -8,22 +10,17 @@ export default class extends Phaser.State {
 
   create () {
     this.game.stage.backgroundColor = 0x4488cc
-    this.MAX_SPEED = 500
-    this.ACCELERATION = 1500
+    this.MAX_SPEED = 400
+    this.ACCELERATION = 1000
     this.DRAG = 600
     this.GRAVITY = 2600
-    this.JUMP_SPEED = -1000
-    this.player = new Player({
-      game: this.game,
-      x: this.world.bottomX,
-      y: this.world.bottomY,
-      asset: 'mushroom'
-    })
-    this.game.physics.enable(this.player, Phaser.Physics.ARCADE)
-    this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10)
-    this.player.body.drag.setTo(this.DRAG, 0)
+    this.JUMP_SPEED = -750
+    const SZ = 32
+    // console.log(this.game)
+
+    this.player = new Player(this.game, 32, 960 - 32, 'mushroom')
+
     this.game.physics.arcade.gravity.y = this.GRAVITY
-    this.player.body.collideWorldBounds = true
     this.game.input.keyboard.addKeyCapture([
       Phaser.Keyboard.LEFT,
       Phaser.Keyboard.RIGHT,
@@ -32,14 +29,24 @@ export default class extends Phaser.State {
       Phaser.Keyboard.SPACEBAR
     ])
     this.ground = this.game.add.group()
-    for (let x = 0; x < this.game.width; x += 32) {
-      // Add the ground blocks, enable physics on each, make them immovable
-      const groundBlock = this.game.add.sprite(x, this.game.height - 32, 'ground')
-      this.game.physics.enable(groundBlock, Phaser.Physics.ARCADE)
-      groundBlock.body.immovable = true
-      groundBlock.body.allowGravity = false
-      this.ground.add(groundBlock)
-    }
+
+    let path = new Phaser.Rectangle(0, 0, 640, SZ);
+    const opt = { bgColor: 0x000000 };
+    const groundBlock = new Platform(this.game, 0, 960 - SZ, path, opt)
+    this.ground.add(groundBlock);
+
+    path = new Phaser.Rectangle(0, 0, 128, SZ * 2);
+    const platform1 = new Platform(this.game, (640 / 2), 960 - (SZ * 4), path, opt)
+    this.ground.add(platform1);
+
+    path = new Phaser.Rectangle(0, 0, 64, SZ);
+    const platform2 = new Platform(this.game, SZ * 2, 960 - (SZ * 6), path, opt)
+    this.ground.add(platform2);
+
+    path = new Phaser.Rectangle(0, 0, 64, SZ);
+    const platform3 = new Platform(this.game, SZ * 12, 960 - (SZ * 6), path, opt)
+    this.ground.add(platform3);
+
     this.game.add.existing(this.player)
   }
 
@@ -71,15 +78,16 @@ export default class extends Phaser.State {
     isActive = this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
     return isActive
   }
+
   upInputIsActive () {
     let isActive = false
-    isActive = this.input.keyboard.downDuration(Phaser.Keyboard.UP)
+    isActive = this.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR)
     return isActive
   }
 
   render () {
-    if (__DEV__) {
-      this.game.debug.spriteInfo(this.player, 32, 32)
-    }
+    // if (__DEV__) {
+    //   this.game.debug.spriteInfo(this.player, 32, 32)
+    // }
   }
 }

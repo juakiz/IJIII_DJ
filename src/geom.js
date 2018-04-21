@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser';
 
 class GeomSpr extends Phaser.Sprite {
 
@@ -36,9 +36,9 @@ class GeomSpr extends Phaser.Sprite {
   
       this.alpha = (opt.alpha === undefined || opt.alpha === null) ? 1 : opt.alpha;
   
-      if (opt.parent) {
-        opt.parent.addChild(this);
-      }
+    //   if (opt.parent) {
+    //     opt.parent.addChild(this);
+    //   }
     }
   
     static polygon(path, graphics) {
