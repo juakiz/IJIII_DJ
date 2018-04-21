@@ -25,7 +25,10 @@ const LEVELS = {
     [15, 12, 4, 1],
   ],
   level2: [
-    [6, 4, 5, 2],
+    [6, 26, 5, 2],
+    [13, 24, 5, 2],
+    [6, 20, 3, 2],
+
   ],
 }
 
@@ -37,13 +40,13 @@ export default class extends Phaser.State {
     this.game.stage.backgroundColor = 0x4488cc
     this.GRAVITY = 2600
 
-    this.player = new Player(this.game, 32, 960 - 32, 'mushroom')
+    this.player = new Player(this.game, 64, 960 - 32)
 
     this.game.physics.arcade.gravity.y = this.GRAVITY
 
     this.ground = this.game.add.group()
 
-    this.bluePrint('level2');
+    this.bluePrint('level1');
 
     this.game.add.existing(this.player)
   }

@@ -1,20 +1,19 @@
 import Phaser from 'phaser'
+import Geom from '../geom'
 
 export default class extends Phaser.Sprite {
-  constructor (game, x, y, asset) {
-    super(game, x, y, asset)
-    this.anchor.setTo(0, 1)
+  constructor(game, x, y) {
+    const opt = { bgColor: 0xFF0000 }
+    super(game, x, y, 'PLAYER')
+    this.anchor.setTo(0.5, 1)
 
-    this.MAX_SPEED = 400
-    this.ACCELERATION = 1000
+    this.MAX_SPEED = 350
+    // this.ACCELERATION = 1000
     this.DRAG = 600
-    this.GRAVITY = 2600
+    // this.GRAVITY = 2600
     this.JUMP_SPEED = -750
 
     this._state = this.game.state.getCurrentState()
-
-    this.height = 128;
-    this.width = 64;
 
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
     this.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10)
@@ -33,7 +32,7 @@ export default class extends Phaser.Sprite {
       Phaser.Keyboard.DOWN,
       Phaser.Keyboard.SPACEBAR
     ])
-    this.body.velocity.x = -1
+    this.body.setSize(32, 128, 30)
   }
 
   update () {
