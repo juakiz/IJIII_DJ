@@ -4,12 +4,24 @@ import Player from '../objects/player'
 import Geom from '../geom'
 import Platform from '../objects/platform'
 
-const LEVEL = [
-  [0, 29, 20, 1],
-  [10, 26, 4, 2],
-  // [],
-  // [],
-]
+const LEVELS = {
+   level1: [
+    [0, 29, 20, 1],
+    [0, 0, 20, 1],
+    [0, 1, 1, 28],
+    [19, 1, 1, 28],
+    [10, 26, 6, 2],
+    [14, 24, 5, 2],
+    [4, 21, 4, 2],
+    [1, 18, 4, 2],
+    [2, 15, 2, 2],
+    [12, 15, 4, 1],
+    [15, 12, 4, 1],
+  ],
+  level2: [
+
+  ],
+}
 
 export default class extends Phaser.State {
   init () { }
@@ -25,12 +37,13 @@ export default class extends Phaser.State {
 
     this.ground = this.game.add.group()
 
-    this.bluePrint();
+    this.bluePrint('level1');
 
     this.game.add.existing(this.player)
   }
 
-  bluePrint() {
+  bluePrint(level) {
+    const LEVEL = LEVELS[level];
     const opt = { bgColor: 0x000000 };
     for (let i = 0; i < LEVEL.length; i++) {
       this.ground.add(new Platform(this.game, LEVEL[i][0], LEVEL[i][1], LEVEL[i][2], LEVEL[i][3], opt))
