@@ -12,10 +12,6 @@ const LEVELS = {
     [19, 1, 1, 28],
   ],
   level1: [
-    [0, 29, 20, 1],
-    [0, 0, 20, 1],
-    [0, 1, 1, 28],
-    [19, 1, 1, 28],
     [10, 26, 6, 2],
     [14, 24, 5, 2],
     [4, 21, 4, 2],
@@ -57,9 +53,11 @@ export default class extends Phaser.State {
 
     this.ground = this.game.add.group()
 
-    this.bluePrint('level2');
+    this.bluePrint('level3');
 
     this.game.add.existing(this.player)
+
+    this.debug = true
   }
 
   bluePrint(level) {
@@ -74,9 +72,16 @@ export default class extends Phaser.State {
     }
   }
 
-  render () {
-    // if (__DEV__) {
-    //   this.game.debug.spriteInfo(this.player, 32, 32)
-    // }
-  }
+  // render () {
+  //   if (__DEV__ && this.debug) {
+  //     game.debug.bodyInfo(this.player, 32, 32);
+  //     game.debug.body(this.player);
+  //     // console.log(this.ground.children);
+  //     for (let i = this.ground.children.length - 1; i >= 0; i--) {
+  //       // console.log(this.ground.children[i]);
+  //       this.game.debug.body(this.ground.children[i]);
+  //     }
+  //     // this.debug = false
+  //   }
+  // }
 }

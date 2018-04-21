@@ -5,11 +5,10 @@ export default class extends Phaser.Sprite {
   constructor(game, x, y) {
     const opt = { bgColor: 0xFF0000 }
     super(game, x, y, 'char_idle')
+    
+    this.playIdle();
+
     this.anchor.setTo(0.5, 1)
-
-    this.animations.add('idle');
-
-    this.animations.play('idle', 6, true);
 
     this.MAX_SPEED = 350
     // this.ACCELERATION = 1000
@@ -36,7 +35,7 @@ export default class extends Phaser.Sprite {
       Phaser.Keyboard.DOWN,
       Phaser.Keyboard.SPACEBAR
     ])
-    this.body.setSize(32, 128, 30, 5)
+    this.body.setSize(32, 103, 36, 30)
   }
 
   update () {
@@ -44,34 +43,54 @@ export default class extends Phaser.Sprite {
     
     if (this.leftInputIsActive()) {
       this.body.velocity.x = -this.MAX_SPEED
+      if (!this.isMirrored) {
+        this.isMirrored = true;
+        this.scale.x *= -1;
+      }
+      if (!this.jumping)
+        this.animState = 'running'
     } else if (this.rightInputIsActive()) {
       this.body.velocity.x = this.MAX_SPEED
+      if (this.isMirrored) {
+        this.playRun()
+        this.isMirrored = false;
+        this.scale.x *= -1;
+      }
+      if (!this.jumping)
+        this.animState = 'running'
     } else {
       this.body.velocity.x = 0
+      if (!this.jumping)
+        this.animState = 'idle'
     }
 
-    let onTheGround = this.body.touching.down
+    this.onTheGround = this.body.touching.down
 
-    if (onTheGround && this.doubleJamp) {
+    if (this.onTheGround && this.doubleJamp) {
       this.jumps = 2
       this.jumping = false
-    } else if (onTheGround && !this.doubleJamp) {
+    } else if (this.onTheGround && !this.doubleJamp) {
       this.jumps = 1
       this.jumping = false
     }
+
     // saltar
     if (this.jumps > 0 && this.upInputIsActive() && this.hiperJamp) {
       this.body.velocity.y = this.JUMP_SPEED * 1.6
       this.jumping = true
+      this.animState = 'jumping'
     } else if (this.jumps > 0 && this.upInputIsActive() && !this.hiperJamp) {
       this.body.velocity.y = this.JUMP_SPEED
       this.jumping = true
+      this.animState = 'jumping'
     }
     // Reduce the number of available jumps if the jump input is released
     if (this.jumping && this.upInputReleased()) {
       this.jumps--
       this.jumping = false
     }
+
+    this.FSM()
   }
 
   leftInputIsActive () {
@@ -96,5 +115,71 @@ export default class extends Phaser.Sprite {
     var released = false
     released = this._state.input.keyboard.upDuration(Phaser.Keyboard.SPACEBAR)
     return released
+  }
+
+  FSM() {
+    if (this.animState === 'playDead') {
+      return;
+    }
+
+    if (!this.onTheGround) {
+      if (this.animations.currentAnim.name !== 'jump') {
+        this.playJump()
+      }
+      return;
+    }
+
+    switch (this.animState) {
+      case 'running':
+        if(this.animations.currentAnim.name !== 'run') {
+          this.playRun()
+        }
+        break;
+      // case 'jumping':
+      //   if(this.animations.currentAnim.name !== 'jump') {
+      //     this.playJump()
+      //   }
+      //   break;
+      case 'talking':
+        if(this.animations.currentAnim.name !== 'talk') {
+          this.playTalk()
+        }
+        break;
+      default:
+        if(this.animations.currentAnim.name !== 'idle') {
+          this.playIdle()
+        }
+    }
+  }
+
+  // Anims
+  playIdle() {
+    this.loadTexture('char_idle', 0);
+    this.animations.add('idle');
+    this.animations.play('idle', 6, true);
+  }
+
+  playRun() {
+    this.loadTexture('char_run', 0);
+    this.animations.add('run');
+    this.animations.play('run', 12, true);
+  }
+
+  playJump() {
+    this.loadTexture('char_jump', 0);
+    this.animations.add('jump');
+    this.animations.play('jump', 9, true);
+  }
+
+  playTalk() {
+    this.loadTexture('char_talk', 0);
+    this.animations.add('talk');
+    this.animations.play('talk', 12, true);
+  }
+  
+  playDead() {
+    this.loadTexture('char_dead', 0);
+    this.animations.add('dead');
+    this.animations.play('dead', 3, true);
   }
 }
