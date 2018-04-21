@@ -24,7 +24,7 @@ export default class extends Phaser.Sprite {
     this.jumping = false
     this.jumps = 0
     this.doubleJamp = false
-    this.hiperJamp = true
+    this.hiperJamp = false
 
     this.game.input.keyboard.addKeyCapture([
       Phaser.Keyboard.LEFT,
