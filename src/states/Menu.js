@@ -1,17 +1,28 @@
 import Phaser from 'phaser'
+import Platform from '../objects/platform'
 import { centerGameObjects } from '../utils'
 
 export default class extends Phaser.State {
   create() {
+    this.music = this.game.add.audio('bso');
+    this.music.loop = true;
+    this.music.play();
     this.game.stage.backgroundColor = 0x4488cc
+    this.ground = this.game.add.group()
+    this.ground.add(new Platform(this.game, 0, 0, 20, 1))
+
     let textStyle = {font: '50px Helvetica', align: 'center', fill: 'white'};
     
+    let menuTitle = this.game.add.sprite(320, 400, 'menutitle');
+    menuTitle.anchor.set(0.5);
+    /*
     let title = this.game.add.text(
       this.game.world.centerX,
       260,
       'Final Turbo Dialog Jamp',
       textStyle);
     title.anchor.set(0.5);
+    */
 
     textStyle.font = '36px Helvetica'
         
@@ -73,6 +84,7 @@ export default class extends Phaser.State {
        
     let enterKey = this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
     enterKey.onDown.addOnce( () => {
+      this.music.restart()
       this.game.state.start('Game')
       this.game.myProps = {
         difficulty: 0

@@ -15,6 +15,7 @@ export default class extends Phaser.Sprite {
     this.DRAG = 600
     // this.GRAVITY = 2600
     this.JUMP_SPEED = -750
+    this.health = 100
 
     this._state = this.game.state.getCurrentState()
 
@@ -77,6 +78,11 @@ export default class extends Phaser.Sprite {
       this.jumping = false
     }
 
+    if (!this.onTheGround) {
+      this.body.velocity.y > 780 ? this.health -= 2 : false
+      console.log(this.health)
+    }
+
     // saltar
     if (this.jumps > 0 && this.upInputIsActive() && this.hiperJamp) {
       this.body.velocity.y = this.JUMP_SPEED * 1.05
@@ -92,6 +98,8 @@ export default class extends Phaser.Sprite {
       this.jumps--
       this.jumping = false
     }
+
+    this.dead()
 
     this.FSM()
   }
@@ -118,6 +126,12 @@ export default class extends Phaser.Sprite {
     var released = false
     released = this._state.input.keyboard.upDuration(Phaser.Keyboard.SPACEBAR)
     return released
+  }
+  
+  dead () {
+    if (this.health <= 0) {
+      this.game.state.start('GameOver')
+    }
   }
 
   FSM() {
