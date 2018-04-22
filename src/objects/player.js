@@ -64,9 +64,9 @@ export default class extends Phaser.Sprite {
         this.animState = 'idle'
     }
 
-    if (!this.onTheGround && this.body.touching.down) {
-      this.game.camera.shake(0.01, 100);
-    }
+    // if (!this.onTheGround && this.body.touching.down) {
+    //   this.game.camera.shake(0.01, 200);
+    // }
     this.onTheGround = this.body.touching.down
 
     if (this.onTheGround && this.doubleJamp) {
