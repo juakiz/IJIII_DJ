@@ -32,8 +32,6 @@ export default class extends Phaser.Sprite {
     this.game.input.keyboard.addKeyCapture([
       Phaser.Keyboard.LEFT,
       Phaser.Keyboard.RIGHT,
-      Phaser.Keyboard.UP,
-      Phaser.Keyboard.DOWN,
       Phaser.Keyboard.SPACEBAR
     ])
     this.body.setSize(32, 103, 36, 30)
@@ -70,6 +68,10 @@ export default class extends Phaser.Sprite {
     // }
     this.onTheGround = this.body.touching.down
 
+    if (this.onTheGround && this.y <= this.game.higherY + 10) {
+      this.game.myEvents.onLastPlat.dispatch();
+    }
+
     if (this.onTheGround && this.doubleJamp) {
       this.jumps = 2
       this.jumping = false
@@ -80,7 +82,7 @@ export default class extends Phaser.Sprite {
 
     if (!this.onTheGround) {
       this.body.velocity.y > 780 ? this.health -= 2 : false
-      console.log(this.health)
+      // console.log(this.health)
     }
 
     // saltar

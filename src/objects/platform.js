@@ -4,8 +4,13 @@ import Geom from '../geom'
 const SZ = 32;
 
 export default class extends Geom {
-  constructor(game, x, y, width, height, opt = {}) {
+  constructor(game, x, y, width, height, opt = {}, checkY = true) {
     super(game, x * SZ, y * SZ, 'rectangle', [0, 0, width * SZ, height * SZ], opt)
+
+    if ((y < this.game.higherY || !this.game.higherY) && checkY) {
+      this.game.higherY = y * 32;
+      this.game.higherPlat = this;
+    }
 
     const test = game.add.sprite( x * SZ, y * SZ, null);
     switch (width) {

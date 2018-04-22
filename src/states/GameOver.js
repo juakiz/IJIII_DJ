@@ -83,6 +83,7 @@ export default class extends Phaser.State {
        
     let rKey = this.game.input.keyboard.addKey(Phaser.KeyCode.R);
     rKey.onDown.addOnce( () => {
+      this.game.myPro.currLvl = 'level1';
       this.game.state.start('Game')
       this.game.myProps = {
         difficulty: 0

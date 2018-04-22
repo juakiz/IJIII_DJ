@@ -20,8 +20,8 @@ const LEVELS = {
       [4, 21, 4, 2],
       [1, 18, 4, 2],
       [2, 15, 2, 2],
-      [15, 12, 4, 1],
       [12, 15, 4, 1],
+      [15, 12, 4, 1],
     ],
     mentor: { name: 'sara', x: 18, y: 12, mirrored: true },
   },
@@ -55,6 +55,7 @@ export default class extends Phaser.State {
   preload () { }
 
   create () {
+    this.game.myEvents = { onLastPlat: new Phaser.Signal() };
     this.music = this.game.add.audio('bso');
     this.music.loop = true;
     this.music.play();
@@ -68,7 +69,7 @@ export default class extends Phaser.State {
 
     this.ground = this.game.add.group()
 
-    this.bluePrint('level2');
+    this.bluePrint(this.game.myPro.currLvl);
 
     this.game.add.existing(this.player)
 
@@ -84,11 +85,11 @@ export default class extends Phaser.State {
 
     const BOUNDS = LEVELS['bounds'];
     for (let i = 0; i < BOUNDS.length; i++) {
-      this.ground.add(new Platform(this.game, BOUNDS[i][0], BOUNDS[i][1], BOUNDS[i][2], BOUNDS[i][3], opt))
+      this.ground.add(new Platform(this.game, BOUNDS[i][0], BOUNDS[i][1], BOUNDS[i][2], BOUNDS[i][3], opt, false))
     }
 
     const MENTOR = LEVELS[level].mentor;
-    this.mentor = new Mentor(this.game, MENTOR.x, MENTOR.y, MENTOR.name, MENTOR.mirrored, );
+    this.mentor = new Mentor(this.game, MENTOR.x, MENTOR.y, MENTOR.name, MENTOR.mirrored);
     this.game.add.existing(this.mentor)
   }
 

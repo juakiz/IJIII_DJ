@@ -19,18 +19,34 @@ export default class extends Phaser.Sprite {
 
     this.playIdle();
 
+    this.game.myEvents.onLastPlat.addOnce(this.showDialogue, this);
+
     this.initDialogue();
-    this.showDialogue(2);
+    // this.showDialogue(2);
     // this.writeQuestion();
 
     this._state = this.game.state.getCurrentState()
 
-    this.game.input.keyboard.addKeyCapture([
-      Phaser.Keyboard.UP,
-      Phaser.Keyboard.DOWN,
-      Phaser.Keyboard.ENTER
-    ]);
+
   }
+
+//   checkAnswer() {
+// console.log(arguments)
+//   }
+
+    restartState() {
+        // this.game.time.events.add(500, () => {
+            if (this.game.myPro.currLvl == 'level1') {
+                this.game.myPro.currLvl = 'level2'
+                this.game.state.restart();
+            } else if (this.game.myPro.currLvl == 'level2') {
+                this.game.myPro.currLvl = 'level3'
+                this.game.state.restart();
+            } else if (this.game.myPro.currLvl == 'level3') {
+                this.game.state.start('Win')
+            }
+        // }, this);
+    }
 
   initDialogue() {
     this.sprDialog = this.game.add.sprite(0, 0, 'dialogF');
@@ -40,10 +56,22 @@ export default class extends Phaser.Sprite {
   }
 
   showDialogue(question) {
-    this.writeQuestion(question);
+    this.writeQuestion(2);
 
     this.game.add.tween(this.sprDialog).to({ x: `+${this.sprDialog.width}`}, 400, 'Quad', true)
-      
+    this.game.input.onDown.addOnce(this.restartState, this);
+    // this.game.myEvents.onLastPlat.addOnce(this.restartState, this);
+
+    this.key1 = game.input.keyboard.addKey(Phaser.Keyboard.ONE).onDown.add(this.restartState, this);
+    this.key2 = game.input.keyboard.addKey(Phaser.Keyboard.TWO).onDown.add(this.restartState, this);
+    this.key3 = game.input.keyboard.addKey(Phaser.Keyboard.THREE).onDown.add(this.restartState, this);
+    this.key4 = game.input.keyboard.addKey(Phaser.Keyboard.FOUR).onDown.add(this.restartState, this);
+
+    // key1.onDown.add(checkAnswer, this);
+    // key2.onDown.add(checkAnswer, this);
+    // key3.onDown.add(checkAnswer, this);
+    // key4.onDown.add(checkAnswer, this);
+    
     console.log(this.DATA);
   }
 

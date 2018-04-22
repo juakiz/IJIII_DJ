@@ -90,5 +90,6 @@ export default class extends Phaser.State {
         difficulty: 0
       }
     });
+    this.game.myPro = { currLvl: 'level1'};
   }
 }
