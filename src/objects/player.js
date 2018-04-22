@@ -25,8 +25,8 @@ export default class extends Phaser.Sprite {
 
     this.jumping = false
     this.jumps = 0
+    this.game.myProps.difficulty ? this.hiperJamp = true : this.hiperJamp = false
     this.doubleJamp = false
-    this.hiperJamp = false
 
     this.game.input.keyboard.addKeyCapture([
       Phaser.Keyboard.LEFT,
@@ -76,7 +76,7 @@ export default class extends Phaser.Sprite {
 
     // saltar
     if (this.jumps > 0 && this.upInputIsActive() && this.hiperJamp) {
-      this.body.velocity.y = this.JUMP_SPEED * 1.6
+      this.body.velocity.y = this.JUMP_SPEED * 1.3
       this.jumping = true
       this.animState = 'jumping'
     } else if (this.jumps > 0 && this.upInputIsActive() && !this.hiperJamp) {
