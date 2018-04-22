@@ -30,18 +30,24 @@ export default class extends Phaser.State {
 
     // ALBY
     this.game.load.image('albyTalking1', 'assets/images/personajes/alby_animation/Talking_01.png');
-    this.game.load.image('albyTalking2', 'assets/images/personajes/alby_animation/Talking_02.png');
+    this.game.load.image('albyTalking0', 'assets/images/personajes/alby_animation/Talking_02.png');
     this.game.load.image('albyWin', 'assets/images/personajes/alby_animation/Win.png');
 
     // SARA
     this.game.load.image('saraTalking1', 'assets/images/personajes/sara_animation/Talking_01.png');
-    this.game.load.image('saraTalking2', 'assets/images/personajes/sara_animation/Talking_02.png');
+    this.game.load.image('saraTalking0', 'assets/images/personajes/sara_animation/Talking_02.png');
     this.game.load.image('saraWin', 'assets/images/personajes/sara_animation/Win.png');
 
     // JUANPABLO
     this.game.load.image('JPTalking1', 'assets/images/personajes/juanpablo_animation/Talking_01.png');
-    this.game.load.image('JPTalking2', 'assets/images/personajes/juanpablo_animation/Talking_02.png');
+    this.game.load.image('JPTalking0', 'assets/images/personajes/juanpablo_animation/Talking_02.png');
     this.game.load.image('JPWin', 'assets/images/personajes/juanpablo_animation/Win.png');
+    
+    // DIALOGUE
+    this.game.load.image('dialogL', 'assets/images/dialogo/dialogue_box_01.png');
+    this.game.load.image('dialogM', 'assets/images/dialogo/dialogue_box_02.png');
+    this.game.load.image('dialogR', 'assets/images/dialogo/dialogue_box_03.png');
+    this.game.load.image('dialogF', 'assets/images/dialogo/dialogue_box_full.png');
   }
 
   create () {

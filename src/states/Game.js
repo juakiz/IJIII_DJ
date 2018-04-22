@@ -63,7 +63,7 @@ export default class extends Phaser.State {
 
     this.ground = this.game.add.group()
 
-    this.bluePrint('level3');
+    this.bluePrint('level2');
 
     this.game.add.existing(this.player)
 
@@ -83,7 +83,7 @@ export default class extends Phaser.State {
     }
 
     const MENTOR = LEVELS[level].mentor;
-    this.mentor = new Mentor(this.game, MENTOR.x, MENTOR.y, MENTOR.name, MENTOR.mirrored);
+    this.mentor = new Mentor(this.game, MENTOR.x, MENTOR.y, MENTOR.name, MENTOR.mirrored, );
     this.game.add.existing(this.mentor)
   }
 

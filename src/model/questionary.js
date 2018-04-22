@@ -3,14 +3,8 @@ class Questionary {
       throw new Error('AbstractClassError');
     }
   
-    static refitText(label, text, newSize = false) {
-      const lbl = label;
-      lbl.text = text;
-      lbl.fontSize = newSize ? `${lbl.newSize}pt` : `${lbl.initSize}pt`;
-      localization.fitText(
-        lbl,
-        lbl.area.width * lbl.paddingPcnt.x,
-        lbl.area.height * lbl.paddingPcnt.y);
+    static getDATA(mentor) {
+      return Questionary.DATA[mentor];
     }
   }
   
