@@ -64,6 +64,9 @@ export default class extends Phaser.Sprite {
         this.animState = 'idle'
     }
 
+    if (!this.onTheGround && this.body.touching.down) {
+      this.game.camera.shake(0.01, 100);
+    }
     this.onTheGround = this.body.touching.down
 
     if (this.onTheGround && this.doubleJamp) {
@@ -76,7 +79,7 @@ export default class extends Phaser.Sprite {
 
     // saltar
     if (this.jumps > 0 && this.upInputIsActive() && this.hiperJamp) {
-      this.body.velocity.y = this.JUMP_SPEED * 1.3
+      this.body.velocity.y = this.JUMP_SPEED * 1.05
       this.jumping = true
       this.animState = 'jumping'
     } else if (this.jumps > 0 && this.upInputIsActive() && !this.hiperJamp) {

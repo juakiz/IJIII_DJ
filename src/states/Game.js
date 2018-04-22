@@ -35,7 +35,7 @@ const LEVELS = {
     [17, 15, 2, 1],
     [16, 9, 1, 1],
     [10, 11, 2, 1],
-    [0, 6, 12, 1]
+    [1, 6, 11, 1]
   ]
 }
 
@@ -76,12 +76,9 @@ export default class extends Phaser.State {
   //   if (__DEV__ && this.debug) {
   //     game.debug.bodyInfo(this.player, 32, 32);
   //     game.debug.body(this.player);
-  //     // console.log(this.ground.children);
   //     for (let i = this.ground.children.length - 1; i >= 0; i--) {
-  //       // console.log(this.ground.children[i]);
   //       this.game.debug.body(this.ground.children[i]);
   //     }
-  //     // this.debug = false
   //   }
   // }
 }
