@@ -30,7 +30,7 @@ export default class extends Geom {
     }
     this.game.add.existing(test)
 
-    this.alpha = 0.5;
+    this.alpha = 0.2;
     this.anchor.set(0)
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
     this.body.immovable = true

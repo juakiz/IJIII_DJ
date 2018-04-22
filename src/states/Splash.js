@@ -14,19 +14,34 @@ export default class extends Phaser.State {
     // load your assets
     //
 
-    // Sprite sheets
+    // Main Character
     this.game.load.spritesheet('char_dead', 'assets/images/personajes/maincharacter_dead.png', 103, 133, 4);
     this.game.load.spritesheet('char_idle', 'assets/images/personajes/maincharacter_idle.png', 103, 133, 4);
     this.game.load.spritesheet('char_jump', 'assets/images/personajes/maincharacter_jump.png', 103, 133, 4);
     this.game.load.spritesheet('char_run', 'assets/images/personajes/maincharacter_run.png', 103, 133, 3);
     this.game.load.spritesheet('char_talk', 'assets/images/personajes/maincharacter_talking.png', 103, 133, 4);
 
-    // Sprites
+    // Platforms
     this.game.load.image('platform_01', 'assets/images/plataformas/platform_01.png');
     this.game.load.image('platform_02', 'assets/images/plataformas/platform_02.png');
     this.game.load.image('platform_03', 'assets/images/plataformas/platform_03.png');
     this.game.load.image('platform_03a', 'assets/images/plataformas/platform_03a.png');
     this.game.load.image('platform_05', 'assets/images/plataformas/platform_05.png');
+
+    // ALBY
+    this.game.load.image('albyTalking1', 'assets/images/personajes/alby_animation/Talking_01.png');
+    this.game.load.image('albyTalking2', 'assets/images/personajes/alby_animation/Talking_02.png');
+    this.game.load.image('albyWin', 'assets/images/personajes/alby_animation/Win.png');
+
+    // SARA
+    this.game.load.image('saraTalking1', 'assets/images/personajes/sara_animation/Talking_01.png');
+    this.game.load.image('saraTalking2', 'assets/images/personajes/sara_animation/Talking_02.png');
+    this.game.load.image('saraWin', 'assets/images/personajes/sara_animation/Win.png');
+
+    // JUANPABLO
+    this.game.load.image('JPTalking1', 'assets/images/personajes/juanpablo_animation/Talking_01.png');
+    this.game.load.image('JPTalking2', 'assets/images/personajes/juanpablo_animation/Talking_02.png');
+    this.game.load.image('JPWin', 'assets/images/personajes/juanpablo_animation/Win.png');
   }
 
   create () {
