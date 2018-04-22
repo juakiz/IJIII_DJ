@@ -9,7 +9,7 @@ export default class extends Phaser.State {
     let title = this.game.add.text(
       this.game.world.centerX,
       260,
-      'You lost your mind',
+      'You win!',
       textStyle);
     title.anchor.set(0.5);
 
@@ -23,32 +23,6 @@ export default class extends Phaser.State {
     instructions.anchor.set(0.5);
 
     this.game.time.events.loop(400, () => { instructions.alpha = instructions.alpha ? 0 : 1; }, this);
-    
-    textStyle.font = '24px Helvetica'
-
-    let easyMessage = this.game.add.text(
-      this.game.world.centerX,
-      this.game.world.centerY + 95,
-      'Press "E" to easy',
-      textStyle);
-    easyMessage.anchor.set(0.5);
-    
-    let controlMessage = this.game.add.text(
-      this.game.world.centerX,
-      this.game.world.centerY + 228,
-      'left arrow to move left\nright arrow to move right\nspacebar to jump.',
-      textStyle);
-    controlMessage.anchor.set(0.5);
-    controlMessage.align = 'left';
-
-    controlMessage.addColor('#ffff00', 0);
-    controlMessage.addColor('#ffffff', 4);
-
-    controlMessage.addColor('#ffff00', 23);
-    controlMessage.addColor('#ffffff', 28);
-
-    controlMessage.addColor('#ffff00', 48);
-    controlMessage.addColor('#ffffff', 56);
     
     textStyle.font = '12px Helvetica'
 
@@ -77,17 +51,9 @@ export default class extends Phaser.State {
     muteMessage.lineSpacing = -8;
 
     muteMessage.fill = '#CCCCCC';
-       
+    
     let rKey = this.game.input.keyboard.addKey(Phaser.KeyCode.R);
     rKey.onDown.addOnce( () => {
-      this.game.state.start('Game')
-      this.game.myProps = {
-        difficulty: 0
-      }
-    });
-    
-    let eKey = this.game.input.keyboard.addKey(Phaser.KeyCode.E);
-    eKey.onDown.addOnce( () => {
       this.game.state.start('Game')
       this.game.myProps = {
         difficulty: 1
