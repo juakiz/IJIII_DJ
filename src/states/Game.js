@@ -4,6 +4,7 @@ import Player from '../objects/player'
 import Mentor from '../objects/mentor'
 import Geom from '../geom'
 import Platform from '../objects/platform'
+import { Sprite } from 'phaser-ce';
 
 const LEVELS = {
   bounds: [
@@ -14,7 +15,7 @@ const LEVELS = {
   ],
   level1: {
     platforms: [
-      [10, 26, 6, 2],
+      [10, 26, 5, 2],
       [14, 24, 5, 2],
       [4, 21, 4, 2],
       [1, 18, 4, 2],
@@ -54,7 +55,11 @@ export default class extends Phaser.State {
   preload () { }
 
   create () {
+    this.music = this.game.add.audio('bso');
+    this.music.loop = true;
+    this.music.play();
     this.game.stage.backgroundColor = 0x4488cc
+    this.game.add.image(this.game.world.centerX, this.game.world.centerY, 'bg').anchor.set(0.5)
     this.GRAVITY = 2600
 
     this.player = new Player(this.game, 64, 960 - 32)

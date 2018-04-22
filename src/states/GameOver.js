@@ -1,9 +1,12 @@
 import Phaser from 'phaser'
+import Platform from '../objects/platform'
 import { centerGameObjects } from '../utils'
 
 export default class extends Phaser.State {
   create() {
     this.game.stage.backgroundColor = 0x4488cc
+    this.ground = this.game.add.group()
+    this.ground.add(new Platform(this.game, 0, 0, 20, 1))
     let textStyle = {font: '50px Helvetica', align: 'center', fill: 'white'};
     
     let title = this.game.add.text(
@@ -29,7 +32,7 @@ export default class extends Phaser.State {
     let easyMessage = this.game.add.text(
       this.game.world.centerX,
       this.game.world.centerY + 95,
-      'Press "E" to easy',
+      'Press "E" to easy...',
       textStyle);
     easyMessage.anchor.set(0.5);
     
