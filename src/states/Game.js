@@ -57,6 +57,7 @@ export default class extends Phaser.State {
   create () {
     this.music = this.game.add.audio('bso');
     this.music.loop = true;
+    this.music.volume -= 0.3;
     this.music.play();
     this.game.stage.backgroundColor = 0x4488cc
     this.game.add.image(this.game.world.centerX, this.game.world.centerY, 'bg').anchor.set(0.5)
