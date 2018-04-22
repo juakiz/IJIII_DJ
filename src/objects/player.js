@@ -17,6 +17,9 @@ export default class extends Phaser.Sprite {
     this.JUMP_SPEED = -750
     this.health = 100
 
+    this.music = this.game.add.audio('jump');
+    this.music.volume += 0.5;
+
     this._state = this.game.state.getCurrentState()
 
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
@@ -87,10 +90,12 @@ export default class extends Phaser.Sprite {
 
     // saltar
     if (this.jumps > 0 && this.upInputIsActive() && this.hiperJamp) {
+      this.music.play()
       this.body.velocity.y = this.JUMP_SPEED * 1.05
       this.jumping = true
       this.animState = 'jumping'
     } else if (this.jumps > 0 && this.upInputIsActive() && !this.hiperJamp) {
+      this.music.play()
       this.body.velocity.y = this.JUMP_SPEED
       this.jumping = true
       this.animState = 'jumping'

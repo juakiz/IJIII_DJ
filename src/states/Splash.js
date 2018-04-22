@@ -19,8 +19,9 @@ export default class extends Phaser.State {
     this.game.load.image('bounds', 'assets/images/bounds.png')
     this.game.load.image('bg', 'assets/images/bg/bg.jpg')
 
-    // Music
-    this.game.load.audio('bso', ['assets/musica/music.wav'])
+    // Sounds
+    this.game.load.audio('bso', 'assets/musica/music.wav')
+    this.game.load.audio('jump', 'assets/musica/Salto.wav')
 
     // Main Character
     this.game.load.spritesheet('char_dead', 'assets/images/personajes/maincharacter_dead.png', 103, 133, 4);
