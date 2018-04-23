@@ -22,6 +22,7 @@ export default class extends Phaser.State {
     // Sounds
     this.game.load.audio('bso', 'assets/musica/music.wav')
     this.game.load.audio('jump', 'assets/musica/Salto.wav')
+    this.game.load.audio('dial', 'assets/musica/Dialogo quiz.wav')
 
     // Main Character
     this.game.load.spritesheet('char_dead', 'assets/images/personajes/maincharacter_dead.png', 103, 133, 4);

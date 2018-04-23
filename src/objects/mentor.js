@@ -57,7 +57,9 @@ export default class extends Phaser.Sprite {
 
   showDialogue(question) {
     this.writeQuestion(2);
-
+    this.music = this.game.add.audio('dial');
+    this.music.play();
+    this.playTalk();
     this.game.add.tween(this.sprDialog).to({ x: `+${this.sprDialog.width}`}, 400, 'Quad', true)
     this.game.input.onDown.addOnce(this.restartState, this);
     // this.game.myEvents.onLastPlat.addOnce(this.restartState, this);
@@ -87,7 +89,7 @@ export default class extends Phaser.Sprite {
     // Question
     console.log(this.DATA[number].q);
     let path = new Phaser.Rectangle(0, 0, 562, 129);
-    const lblQ = TM.makeText(this.game, -26, 16, this.DATA[number].q, 'Arial', '#000000', 26, path, { x: 1, y: 1 }, true);
+    const lblQ = TM.makeText(this.game, -26, 16, this.DATA[number].q, 'Helvetica', '#000000', 26, path, { x: 1, y: 1 }, true);
     // lblQ.align = 'left';
     lblQ.anchor.set(1, 0);
 

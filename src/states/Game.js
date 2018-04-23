@@ -29,6 +29,7 @@ const LEVELS = {
     platforms: [
       [6, 26, 5, 2],
       [13, 24, 5, 2],
+      [18, 24, 1, 1],
       [8, 20, 1, 1],
       [1, 16, 3, 2],
       [8, 12, 4, 4],
@@ -56,10 +57,10 @@ export default class extends Phaser.State {
 
   create () {
     this.game.myEvents = { onLastPlat: new Phaser.Signal() };
-    this.music = this.game.add.audio('bso');
-    this.music.loop = true;
-    this.music.volume -= 0.3;
-    this.music.play();
+    // this.music = this.game.add.audio('bso');
+    // this.music.loop = true;
+    // this.music.volume -= 0.3;
+    // this.music.play();
     this.game.stage.backgroundColor = 0x4488cc
     this.game.add.image(this.game.world.centerX, this.game.world.centerY, 'bg').anchor.set(0.5)
     this.GRAVITY = 2600
